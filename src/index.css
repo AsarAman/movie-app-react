@@ -1,13 +1,407 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Box sizing rules */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg-color: hsl(220,22%,29%);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Remove default margin */
+*{
+  margin: 0;
+  padding: 0;
 }
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+html,body{
+  height: 100%;
+}
+body {
+
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+a{
+  text-decoration: none;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+body{
+  background-color: var(--bg-color);
+}
+.container{
+  width: 90%;
+  max-width: 70rem;
+  margin-inline: auto ;
+}
+.movies{
+  display: grid;
+  grid-template-rows: auto 1fr;
+  margin: 3rem 0;
+  grid-template-columns: repeat(2,1fr);
+  gap: 1rem;
+}
+
+@media screen and (min-width:440px) {
+  .movies{
+    grid-template-columns: repeat(2,1fr);
+    gap: 1rem;
+  }
+  
+}
+@media screen and (min-width:600px) {
+  .movies {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+    row-gap: 1rem;
+  }
+
+}
+@media screen and (min-width:750px) {
+  .movies {
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    row-gap: 1rem;
+  }
+
+}
+@media screen and (min-width:1000px) {
+  .movies {
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 2rem;
+    row-gap: 1rem;
+  }
+
+}
+.movie{
+  background-color: hsl(220, 13%, 18%);
+  color: rgba(255, 255, 255, 0.726);
+  border-radius: 10px;
+  padding: 8px;
+  transition: 0.3s all;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  
+  justify-content: space-between;
+}
+
+.movie:hover{
+  background-color: white;
+  color: black;
+  transform: translateY(-5px); 
+  
+
+}
+.title{
+  font-weight: bold;
+  text-align: center;
+  margin-top: 4px;
+  
+}
+.movie-info{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.vote{
+  position: absolute;
+  top: 0.2%;
+  right: 0.2%;
+  background-color: rgb(123, 123, 228);
+  border-radius: 50%;
+  padding: 3px 5px;
+  color: white;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.trending-title{
+  color: rgba(255, 255, 255, 0.753);
+  text-align: center;
+  text-transform: capitalize;
+  margin: 2rem 0 .5rem 0;
+}
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5em;
+  color: rgba(255, 255, 255, 0.753);
+  box-shadow: 0 5px 5px  hsl(220, 13%, 18%) ;
+  z-index: 100;
+  height: 6rem;
+  width: 100%;
+  margin-bottom: 2rem;
+
+}
+.header h1{
+  font-size: 1.5rem;
+}
+
+.icon{
+  display: none;
+
+}
+@media screen and (min-width:500px) {
+  .icon{
+    display: block;
+  }
+  
+}
+.favourite{
+  position: absolute;
+  top: 0.2%;
+  left: 0.2%;
+    
+  
+    
+    border-radius: 3px;
+    padding: 3px 5px;
+    color: white;
+    
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+    
+    
+
+    
+    background-color: rgb(123, 123, 228) ;
+    
+    
+
+}
+.fav{
+  text-align: center;
+  margin-inline: 15px;
+  opacity: 0;
+  transition: 0.3s ease;
+  cursor: pointer;
+
+}
+.movie:hover .fav{
+  opacity: 1;
+
+}
+.heart{
+  display: inline;
+  
+}
+
+.pagination-button{
+  background-color: rgb(21, 21, 214);
+  border: none;
+  outline: none;
+  height: 30px;
+  width: 30px;
+  border-radius: 100vmax;
+  margin-right: 5px;
+  color: white;
+  margin-bottom: 10px;
+  cursor: pointer;
+  line-height: 1;
+
+
+}
+.prev, .next{
+  width: 45px;
+  height: 45px;
+
+}
+.pagination{
+  width: 100%;
+  max-width: 500px;
+  margin-inline: auto;
+}
+.active{
+  background-color: red;
+}
+.genre-button{
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+
+}
+.single-movie{
+  margin: 3rem 0;
+  color: white;
+  display: grid;
+  
+}
+.single-movie img{
+  border-radius: 10px;
+}
+.movie-title{
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+.movie-tagline{
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.842);
+  
+}
+.movie-overview{
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.349);
+  padding: 5px;
+  border-radius: 10px;
+}
+@media screen and (min-width:868px ) {
+  .single-movie{
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    border: 2px solid white;
+      border-radius: 10px;
+      padding: 10px;
+  }
+  .movie-title{
+    font-size: 45px;
+  }
+  .movie-tagline{
+    font-size: 20px;
+  }
+  .movie-overview{
+    font-size: 20px;
+    padding: 10px;
+  }
+
+
+  
+}
+.back{
+  text-decoration: none;
+  color: white;
+  background-color: blue;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  
+  border: none;
+  outline: none;
+}
+.form{
+  
+  width: 10rem;
+  display: grid;
+  margin-inline: auto;
+  
+}
+.input{
+  outline: none;
+  border: none;
+  background-color: hsl(220, 17%, 35%);
+  color: rgba(255, 255, 255, 0.582);
+  
+  
+  
+}
+.search-info{
+  display: grid;
+  margin-inline: auto;
+  grid-template-columns: 1fr 1fr;
+  color: white;
+  cursor: pointer;
+
+
+}
+.active-search{
+  margin-bottom: 2px solid white;
+
+}
+.loading{
+height: 70px;
+width: 70px;
+border: 5px solid blue;
+border-bottom: 5px solid orange;
+border-radius: 50%;
+animation: spin 1s linear infinite;
+display: grid;
+transition: 0.3s all;
+margin-block: 2rem;
+
+margin-inline: auto;
+}
+@keyframes spin {
+  to{
+    transform: rotate(360deg);
+  }
+}
+.searchbox{
+  color: white;
+}
+/* ul li{
+  background-color: blue;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+li:hover{
+  background-color: rgba(125, 125, 211, 0.705);
+} */
